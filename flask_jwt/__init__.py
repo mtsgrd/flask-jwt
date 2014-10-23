@@ -154,9 +154,9 @@ class JWTAuthView(MethodView):
         data = request.get_json(force=True)
         username = data.get('username', None)
         password = data.get('password', None)
-        criterion = [username, password, len(data) == 2]
+        criteria = [username, password]
 
-        if not all(criterion):
+        if not all(criteria):
             raise JWTError('Bad Request', 'Missing required credentials', status_code=400)
 
         user = _jwt.authentication_callback(username=username, password=password)
